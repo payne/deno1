@@ -1,5 +1,32 @@
 # Deno TypeScript Presentation - Session Log
 
+---
+
+## Session: 2026-05-19 (Follow-up)
+
+### User Request
+User asked to continue recording interactions in a markdown file.
+
+### Actions Taken
+- Confirmed `SESSION_LOG.md` already exists from previous session
+- Saved a memory file to persist this preference for future sessions
+- Appended this entry to the existing log
+
+## Session: 2026-05-19 (GitHub Actions)
+
+### User Request
+Automatically regenerate `index.html` (GitHub Pages) on every push to main.
+
+### Actions Taken
+- Created `.github/workflows/build-slides.yml`
+- Workflow triggers on pushes to `main` that modify any `.md` file
+- Installs Marp CLI, runs `marp presentation-complete.md -o index.html`
+- Commits and pushes updated `index.html` back to main with `[skip ci]` to prevent loop
+- Uses `GITHUB_TOKEN` (via `permissions: contents: write`) — no secrets needed
+
+---
+
+
 ## Session Date
 2026-05-19
 
