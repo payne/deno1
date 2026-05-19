@@ -1,4 +1,4 @@
-name: Build Slides
+name: Build and Deploy Slides
 
 on:
   push:
@@ -6,12 +6,18 @@ on:
     paths:
       - '**.md'
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
     steps:
       - uses: actions/checkout@v4
 
@@ -21,12 +27,20 @@ jobs:
 
       - run: npm install -g @marp-team/marp-cli
 
-      - run: marp presentation-complete.md -o index.html
+      - run: mkdir -p _site && marp presentation-complete.md -o _site/index.html
 
-      - name: Commit updated index.html
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html
-          git diff --cached --quiet || git commit -m "chore: regenerate index.html from slides [skip ci]"
-          git push
+      - uses: actions/configure-pages@v4
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site'
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
