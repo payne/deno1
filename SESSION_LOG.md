@@ -180,9 +180,10 @@ Structured the presentation into 5 separate slide decks:
 3. `03-typescript-fundamentals.md` - TypeScript concepts (17 slides)
 4. `04-building-cli-apps.md` - CLI development (24 slides)
 5. `05-advanced-topics.md` - Advanced features (27 slides)
-6. `SESSION_LOG.md` - This interaction log
+6. `presentation-complete.md` - **Combined single file with all slides** (~95 slides)
+7. `SESSION_LOG.md` - This interaction log
 
-**Total Slides:** ~89 slides across all decks
+**Total Slides:** ~89 slides across individual decks, ~95 slides in combined file
 
 ## Presentation Flow
 
@@ -204,34 +205,41 @@ Install Marp CLI:
 npm install -g @marp-team/marp-cli
 ```
 
+### Option 1: Single Combined Presentation (Recommended)
+
+Generate one HTML file with all slides:
+```bash
+marp presentation-complete.md --html
+```
+
+Open the generated `presentation-complete.html` in your browser and present!
+
+Generate as PDF:
+```bash
+marp presentation-complete.md --pdf
+```
+
+Watch mode for live editing:
+```bash
+marp -w presentation-complete.md
+```
+
+### Option 2: Individual Slide Decks
+
 View individual decks:
 ```bash
-marp 01-introduction.md
-marp 02-getting-started.md
+marp 01-introduction.md --html
+marp 02-getting-started.md --html
 # ... etc
 ```
 
-### Generate PDFs
-
+Generate PDFs:
 ```bash
 marp 01-introduction.md --pdf
 marp 02-getting-started.md --pdf
 marp 03-typescript-fundamentals.md --pdf
 marp 04-building-cli-apps.md --pdf
 marp 05-advanced-topics.md --pdf
-```
-
-### Generate HTML
-
-```bash
-marp 01-introduction.md --html
-# ... etc
-```
-
-### Watch Mode for Live Editing
-
-```bash
-marp -w 01-introduction.md
 ```
 
 ## Presentation Tips
@@ -272,6 +280,17 @@ marp -w 01-introduction.md
 All requested deliverables completed:
 - ✅ 30-50 minute presentation created
 - ✅ Reference article integrated
-- ✅ Multiple file structure implemented
+- ✅ Multiple file structure implemented (5 separate files)
+- ✅ Combined single-file presentation created (`presentation-complete.md`)
 - ✅ Marp.app syntax used throughout
 - ✅ Interaction log recorded (this file)
+
+## Additional User Request
+
+User requested a single command to generate one HTML file with the entire presentation. Created `presentation-complete.md` which combines all 5 slide decks into one cohesive presentation that can be exported with:
+
+```bash
+marp presentation-complete.md --html
+```
+
+This provides the best presentation experience with smooth navigation through all topics in a single file.
